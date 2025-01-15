@@ -8,5 +8,8 @@ import java.util.List;
 public interface OrderAssignment {
 
     void assignOrdersToAvailableDriver(List<Customer.Order> orders, List<Driver> drivers);
+    void assignThisOrderToAvailableDriver(Customer.Order order);
+    void assignAvailableOrderToThisDriver(Driver driver);
+
 
 }

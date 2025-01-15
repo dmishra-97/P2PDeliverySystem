@@ -5,6 +5,7 @@ import org.delivery.exception.OrderStateException;
 import org.delivery.model.*;
 import org.delivery.repository.DriverRepository;
 import org.delivery.repository.OrderRepository;
+import org.delivery.utils.OrderAssignmentUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class CustomerActionsImpl implements CustomerActions {
     @Autowired
     DriverRepository driverRepository;
 
+    @Autowired
+    OrderAssignment orderAssignment;
+
     @Override
     public void createOrder(Customer customer, Map<String,String> details) {
         Customer.Order order = Customer.Order.builder()
@@ -38,6 +42,7 @@ public class CustomerActionsImpl implements CustomerActions {
         customer.getOrders().add(order);
 
         orderRepository.save(order.getOrderId(),order);
+        orderAssignment.assignThisOrderToAvailableDriver(order);
 
     }
 
